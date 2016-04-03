@@ -10,7 +10,7 @@
 npm install --save image-promise
 ```
 ```js
-import loadImage, {unload as unloadImage} from 'image-promise';
+import loadImage from 'image-promise';
 ```
 
 If you don't use node/babel, include this:
@@ -39,9 +39,6 @@ Because are `<img>` are cached internally, if you want to uncache and [unload th
 
 ```js
 loadImage.unload('img.jpg');
-
-// or, if you use ES2015:
-unloadImage('img.jpg')
 ```
 
 ## Dependencies

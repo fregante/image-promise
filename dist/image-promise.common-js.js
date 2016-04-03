@@ -27,7 +27,7 @@ function load(src) {
 	return loaded[src];
 }
 
-function unload(src) {
+load.unload = function (src) {
 	if (loaded[src]) {
 		return loaded[src].then(function (image) {
 			// GC, http://www.fngtps.com/2010/mobile-safari-image-resource-limit-workaround/
@@ -35,12 +35,6 @@ function unload(src) {
 			delete loaded[src];
 		});
 	}
-}
-// rollup browserify compat
-// https://github.com/rollup/rollup/issues/496
-if (typeof module !== 'undefined') {
-	module.exports = load;
-}
+};
 
-exports['default'] = load;
-exports.unload = unload;
+module.exports = load;
