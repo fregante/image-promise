@@ -41,6 +41,37 @@ Because are `<img>` are cached internally, if you want to uncache and [unload th
 loadImage.unload('img.jpg');
 ```
 
+### Load multiple images
+
+`image-promise` only works for one image at a time. Here are a couple ways to load more than one image and wait for all of them:
+
+```js
+Promise.all([
+	loadImage('url.jpg'),
+	loadImage('url2.jpg')
+]).then(function (imgs) {
+	console.log(imgs.length, 'images loaded!', imgs);
+}).catch(function () {
+	console.error('One or more images have failed to load :(');
+});
+```
+
+Or, if you have an array of urls:
+
+```js
+var arrayOfUrls = [
+	'url.jpg',
+	'url2.jpg',
+	...
+]
+Promise.all( arrayOfUrls.map(loadImage) ).then(function (imgs) {
+	console.log(imgs.length, 'images loaded!', imgs);
+}).catch(function () {
+	console.error('One or more images have failed to load :(');
+});
+```
+
+
 ## Dependencies
 
 None! But you might need to polyfill `window.Promise`
