@@ -1,6 +1,6 @@
 # image-promise
 
-> Load an image and return a promise in the browser, in 0.4KB, no dependencies
+> Load an image and return a promise in the browser, in 0.3KB, no dependencies
 
 [![gzipped size](https://badges.herokuapp.com/size/github/bfred-it/image-promise/master/dist/image-promise.browser.js?gzip=true&label=gzipped%20size)](#readme) [![Travis build status](https://api.travis-ci.org/bfred-it/image-promise.svg?branch=master)](https://travis-ci.org/bfred-it/image-promise) [![gzipped size](https://img.shields.io/npm/v/image-promise.svg)](https://www.npmjs.com/package/image-promise) 
 

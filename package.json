@@ -31,13 +31,12 @@
   "scripts": {
     "build:js": "bfred-npm-bundler image-promise loadImage",
     "build:size": "gzip-size dist/image-promise.browser.js",
-    "build": "npm-run-all --silent test build:*",
+    "build": "npm-run-all --silent jsfix build:*",
     "jsfix": "xo --fix",
-    "watch:server": "browser-sync start --server --files '*.html,dist/*.browser.js'",
-    "watch:build": "onchange 'index.js' 'lib/*' -i -v -- npm run build -- -c",
+    "watch:build": "onchange 'index.js' --initial -- npm run build -- --continue-on-error",
     "watch": "npm-run-all --parallel --silent watch:*",
     "prepublish": "npm run build",
-    "test": "xo"
+    "test": "xo; npm run build"
   },
   "devDependencies": {
     "babel-preset-es2015-rollup": "^1.1.1",
