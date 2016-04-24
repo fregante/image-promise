@@ -1,6 +1,6 @@
 {
   "name": "image-promise",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Load an image and return a promise in the browser, in 0.4KB",
   "license": "MIT",
   "repository": "bfred-it/image-promise",

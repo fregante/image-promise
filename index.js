@@ -26,11 +26,14 @@ function load(src) {
 }
 
 load.unload = function (src) {
-	return (loaded[src] || Promise.resolve({})).then(image => {
-		// GC, http://www.fngtps.com/2010/mobile-safari-image-resource-limit-workaround/
-		image.src = EMPTY_IMAGE;
-		delete loaded[src];
-	});
+	if (loaded[src]) {
+		loaded[src].then(image => {
+			// GC, http://www.fngtps.com/2010/mobile-safari-image-resource-limit-workaround/
+			image.src = EMPTY_IMAGE;
+			delete loaded[src];
+		});
+	}
+	return Promise.resolve();
 };
 
 export default load;
