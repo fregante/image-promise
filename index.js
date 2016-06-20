@@ -1,14 +1,11 @@
 'use strict';
 
-// let images = ['a.jpg','b.jpg'];
-// Promise.all(images.map(loadImage))
-
 const EMPTY_IMAGE = 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=';
 const loaded = {};
 
 function load(src) {
+	const image = new Image(); // putting this outside the condition avoids an IIFE in babel
 	if (!loaded[src]) {
-		const image = new Image();
 		loaded[src] = new Promise((resolve, reject) => {
 			image.addEventListener('load', resolve.bind(null, image));
 			image.addEventListener('error', reject.bind(null, image));
