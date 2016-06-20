@@ -5,13 +5,13 @@ const EMPTY_IMAGE = 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs='
 function load(src) {
 	// if more than one argument, treat as
 	// load('1.jpg', '2.jpg')
-	if (arguments[1]) {
+	if (typeof arguments[1] === 'string') {
 		src = Array.apply(null, arguments);
 	}
 
 	// if first argument is an array, treat as
 	// load(['1.jpg', '2.jpg'])
-	if (Array.isArray(src)) {
+	if (src.map) {
 		return Promise.all(src.map(load));
 	}
 
@@ -34,13 +34,13 @@ function load(src) {
 load.unload = function (src) {
 	// if more than one argument, treat as
 	// load('1.jpg', '2.jpg')
-	if (arguments[1]) {
+	if (typeof arguments[1] === 'string') {
 		src = Array.apply(null, arguments);
 	}
 
 	// if first argument is an array, treat as
 	// load(['1.jpg', '2.jpg'])
-	if (Array.isArray(src)) {
+	if (src.map) {
 		return Promise.all(src.map(load.unload));
 	}
 
