@@ -1,7 +1,6 @@
 'use strict';
 
 const EMPTY_IMAGE = 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=';
-const loaded = {};
 
 function load(src) {
 	// if more than one argument, treat as
@@ -17,8 +16,8 @@ function load(src) {
 	}
 
 	const image = new Image(); // putting this outside the condition avoids an IIFE in babel
-	if (!loaded[src]) {
-		loaded[src] = new Promise((resolve, reject) => {
+	if (!load[src]) {
+		load[src] = new Promise((resolve, reject) => {
 			image.addEventListener('load', resolve.bind(null, image));
 			image.addEventListener('error', reject.bind(null, image));
 			image.src = src;
@@ -27,9 +26,9 @@ function load(src) {
 				resolve(image);
 			}
 		});
-		loaded[src].image = image;
+		load[src].image = image;
 	}
-	return loaded[src];
+	return load[src];
 }
 
 load.unload = function (src) {
@@ -45,11 +44,11 @@ load.unload = function (src) {
 		return Promise.all(src.map(load.unload));
 	}
 
-	if (loaded[src]) {
-		return loaded[src].catch(() => {}).then(image => {
+	if (load[src]) {
+		return load[src].catch(() => {}).then(image => {
 			// GC, http://www.fngtps.com/2010/mobile-safari-image-resource-limit-workaround/
 			image.src = EMPTY_IMAGE;
-			delete loaded[src];
+			delete load[src];
 		});
 	}
 	return Promise.resolve();
