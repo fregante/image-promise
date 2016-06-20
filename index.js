@@ -4,6 +4,12 @@ const EMPTY_IMAGE = 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs='
 const loaded = {};
 
 function load(src) {
+	// if first argument is an array, treat as
+	// load(['1.jpg', '2.jpg'])
+	if (Array.isArray(src)) {
+		return Promise.all(src.map(load));
+	}
+
 	const image = new Image(); // putting this outside the condition avoids an IIFE in babel
 	if (!loaded[src]) {
 		loaded[src] = new Promise((resolve, reject) => {
