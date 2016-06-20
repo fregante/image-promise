@@ -10,10 +10,8 @@ function load(src) {
 	if (!loaded[src]) {
 		const image = new Image();
 		loaded[src] = new Promise((resolve, reject) => {
-			image.addEventListener('load', () => {
-				resolve(image);
-			});
-			image.addEventListener('error', reject);
+			image.addEventListener('load', resolve.bind(null, image));
+			image.addEventListener('error', reject.bind(null, image));
 			image.src = src;
 
 			if (image.complete) {
