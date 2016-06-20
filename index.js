@@ -17,7 +17,7 @@ function load(src) {
 			image.src = src;
 
 			if (image.complete) {
-				setTimeout(resolve, 0, image);
+				resolve(image);
 			}
 		});
 		loaded[src].image = image;
