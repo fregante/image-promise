@@ -33,6 +33,18 @@ function load(src) {
 }
 
 load.unload = function (src) {
+	// if more than one argument, treat as
+	// load('1.jpg', '2.jpg')
+	if (arguments[1]) {
+		src = Array.apply(null, arguments);
+	}
+
+	// if first argument is an array, treat as
+	// load(['1.jpg', '2.jpg'])
+	if (Array.isArray(src)) {
+		return Promise.all(src.map(load.unload));
+	}
+
 	if (loaded[src]) {
 		return loaded[src].catch(() => {}).then(image => {
 			// GC, http://www.fngtps.com/2010/mobile-safari-image-resource-limit-workaround/
