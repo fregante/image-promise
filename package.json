@@ -50,7 +50,10 @@
     "esnext": true,
     "env": [
       "browser"
-    ]
+    ],
+    "rules": {
+    	"prefer-spread": 0
+    }
   },
   "bugs": {
     "url": "https://github.com/bfred-it/image-promise/issues"

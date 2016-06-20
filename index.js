@@ -4,6 +4,12 @@ const EMPTY_IMAGE = 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs='
 const loaded = {};
 
 function load(src) {
+	// if more than one argument, treat as
+	// load('1.jpg', '2.jpg')
+	if (arguments[1]) {
+		src = Array.apply(null, arguments);
+	}
+
 	// if first argument is an array, treat as
 	// load(['1.jpg', '2.jpg'])
 	if (Array.isArray(src)) {
