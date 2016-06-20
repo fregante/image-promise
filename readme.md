@@ -19,16 +19,18 @@ If you don't use node/babel, include this:
 <script src="dist/image-promise.browser.js"></script>
 ```
 
-It uses the ES2015 `window.Promise`, so if you need to support older browsers you need a polyfill.
+It uses the ES2015 `window.Promise`, so if you need to support [older browsers](http://caniuse.com/#feat=promises) (IE<=11) you need a polyfill.
 
 ## Usage
 
 You can load a single image from its URL:
 
 ```js
-loadImage('img.jpg').then(function (img) {
+loadImage('img.jpg')
+.then(function (img) {
 	console.log('Image loaded!', img);
-}).catch(function () {
+})
+.catch(function () {
 	console.error('Image failed to load :(');
 });
 ```
@@ -43,30 +45,21 @@ loadImage.unload('img.jpg');
 
 ### Load multiple images
 
-`image-promise` only works for one image at a time. Here are a couple ways to load more than one image and wait for all of them:
+`image-promise` also accepts an array of URLs **or** multiple parameters:
 
 ```js
-Promise.all([
-	loadImage('url.jpg'),
-	loadImage('url2.jpg')
-]).then(function (imgs) {
-	console.log(imgs.length, 'images loaded!', imgs);
-}).catch(function () {
-	console.error('One or more images have failed to load :(');
-});
+loadImage(['url.jpg','url2.jpg']);
+loadImage('url.jpg','url2.jpg');
 ```
 
-Or, if you have an array of urls:
+The promise fulfills with the array of `<img>`s:
 
 ```js
-var arrayOfUrls = [
-	'url.jpg',
-	'url2.jpg',
-	...
-]
-Promise.all( arrayOfUrls.map(loadImage) ).then(function (imgs) {
-	console.log(imgs.length, 'images loaded!', imgs);
-}).catch(function () {
+loadImage('url.jpg','url2.jpg')
+.then(function (allImgs) {
+	console.log(allImgs.length, 'images loaded!', allImgs);
+})
+.catch(function (allImgs) {
 	console.error('One or more images have failed to load :(');
 });
 ```
