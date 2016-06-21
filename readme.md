@@ -21,9 +21,20 @@ If you don't use node/babel, include this:
 
 It uses the ES2015 `window.Promise`, so if you need to support [older browsers](http://caniuse.com/#feat=promises) (IE<=11) you need a polyfill.
 
+## API
+
+**`loadImage( <string> URL )`**
+
+Returns a Promise that fulfills with an image (`<img>`)
+
+**`loadImage( <string> URL1, <string> URL2[, ... [,<string> URLn]])**  
+**`loadImage( <array> URLS )**
+
+Returns a Promise that fulfills with **an array of images.**
+
 ## Usage
 
-You can load a single image from its URL:
+Load one image:
 
 ```js
 loadImage('img.jpg')
@@ -35,27 +46,11 @@ loadImage('img.jpg')
 });
 ```
 
-`image-promise` also caches the generated `<img>` tags so successive calls with the same exact `src` string will return the same `<img>` tag and be resolve at the same time as the first one.
-
-Because are `<img>` are cached internally, if you want to uncache and [unload them from memory](http://www.fngtps.com/2010/mobile-safari-image-resource-limit-workaround/), call the `unload` method on the same `src`:
+Load multiple images
 
 ```js
-loadImage.unload('img.jpg');
-```
-
-### Load multiple images
-
-`image-promise` also accepts an array of URLs **or** multiple parameters:
-
-```js
-loadImage(['url.jpg','url2.jpg']);
-loadImage('url.jpg','url2.jpg');
-```
-
-The promise fulfills with the array of `<img>`s:
-
-```js
-loadImage('url.jpg','url2.jpg')
+loadImage('url.jpg','url2.jpg'); // multiple URLs as multiple parameters
+// or loadImage(['url.jpg','url2.jpg']) // multiple URLs in a single array 
 .then(function (allImgs) {
 	console.log(allImgs.length, 'images loaded!', allImgs);
 })
@@ -64,6 +59,15 @@ loadImage('url.jpg','url2.jpg')
 });
 ```
 
+## Automatic cache
+
+`image-promise` also caches the generated `<img>` tags so successive calls with the same exact `src` string will return the same `<img>` tag and be resolve at the same time as the first one.
+
+Because are `<img>` are cached internally, if you want to uncache and [unload them from memory](http://www.fngtps.com/2010/mobile-safari-image-resource-limit-workaround/), call the `unload` method on the same `src`:
+
+```js
+loadImage.unload('img.jpg'); // like with loadImage(), you can also pass multiple parameters or an array of URLs
+```
 
 ## Dependencies
 
