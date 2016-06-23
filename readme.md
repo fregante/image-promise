@@ -23,12 +23,16 @@ It uses the ES2015 `window.Promise`, so if you need to support [older browsers](
 
 ## API
 
-**`loadImage( <string> URL )`**
+```js
+loadImage( <string> URL );
+```
 
 Returns a Promise that fulfills with an image (`<img>`)
 
-**`loadImage( <string> URL1, <string> URL2[, ... [,<string> URLn]])**  
-**`loadImage( <array> URLS )**
+```js
+loadImage( <string> URL1, <string> URL2[, ... [,<string> URLn]])
+loadImage( <array> URLS )
+```
 
 Returns a Promise that fulfills with **an array of images.**
 
