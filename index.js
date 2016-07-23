@@ -1,13 +1,7 @@
 'use strict';
 
 export default function load(src) {
-	// if more than one argument, treat as
-	// load('1.jpg', '2.jpg')
-	if (arguments.length > 1) {
-		src = Array.apply(0, arguments);
-	}
-
-	// if first argument is an array, treat as
+	// if argument is an array, treat as
 	// load(['1.jpg', '2.jpg'])
 	if (src.map) {
 		return Promise.all(src.map(load));
@@ -34,13 +28,7 @@ export default function load(src) {
 }
 
 load.unload = function (src) {
-	// if more than one argument, treat as
-	// load('1.jpg', '2.jpg')
-	if (arguments.length > 1) {
-		src = Array.apply(0, arguments);
-	}
-
-	// if first argument is an array, treat as
+	// if argument is an array, treat as
 	// load(['1.jpg', '2.jpg'])
 	if (src.map) {
 		return Promise.all(src.map(load.unload));
