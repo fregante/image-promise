@@ -8,8 +8,11 @@ export default function load(src) {
 	}
 
 	// check whether an <img> was passed as argument
-	const image = src.src ? src : new Image();
-	src = src.src;
+	let image = new Image();
+	if (src.src) {
+		image = src;
+		src = src.src;
+	}
 
 	if (!load[src]) {
 		load[src] = new Promise((resolve, reject) => {
