@@ -7,8 +7,10 @@ export default function load(src) {
 		return Promise.all(src.map(load));
 	}
 
+	// check whether an <img> was passed as argument
 	const image = src.src ? src : new Image();
 	src = src.src;
+
 	if (!load[src]) {
 		load[src] = new Promise((resolve, reject) => {
 			image.addEventListener('load', () => resolve(image));
@@ -28,6 +30,11 @@ export default function load(src) {
 }
 
 load.unload = function (src) {
+	// an <img> was passed as argument
+	if (src.src) {
+		src = src.src;
+	}
+
 	// if argument is an array, treat as
 	// load(['1.jpg', '2.jpg'])
 	if (src.map) {
