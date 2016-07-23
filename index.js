@@ -13,12 +13,16 @@ export default function load(src) {
 		return Promise.all(src.map(load));
 	}
 
-	const image = new Image();
+	const image = src.src ? src : new Image();
+	src = src.src;
 	if (!load[src]) {
 		load[src] = new Promise((resolve, reject) => {
 			image.addEventListener('load', () => resolve(image));
 			image.addEventListener('error', () => reject(image));
-			image.src = src;
+
+			if (!image.src) {
+				image.src = src;
+			}
 
 			if (image.complete) {
 				resolve(image);
