@@ -31,16 +31,10 @@ load.unload = function (src) {
 	// if argument is an array, treat as
 	// load(['1.jpg', '2.jpg'])
 	if (src.map) {
-		return Promise.all(src.map(load.unload));
-	}
-
-	const unload = image => {
+		src.map(load.unload);
+	} else if (load[src]) {
 		// GC, http://www.fngtps.com/2010/mobile-safari-image-resource-limit-workaround/
-		image.src = 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=';
+		load[src].image.src = 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=';
 		delete load[src];
-	};
-	if (load[src]) {
-		return load[src].then(unload, unload);
 	}
-	return Promise.resolve();
 };
