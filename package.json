@@ -23,14 +23,8 @@
   ],
   "main": "dist/image-promise.common-js.js",
   "jsnext:main": "dist/image-promise.es-modules.js",
-  "babel": {
-    "presets": [
-      "es2015-rollup"
-    ]
-  },
   "scripts": {
     "build:js": "bfred-npm-bundler image-promise loadImage",
-    "build:size": "gzip-size dist/image-promise.browser.js",
     "build": "npm-run-all --silent jsfix build:*",
     "jsfix": "xo --fix",
     "watch:build": "onchange 'index.js' --initial -- npm run build -- --continue-on-error",
@@ -39,12 +33,10 @@
     "test": "xo; npm run build"
   },
   "devDependencies": {
-    "babel-preset-es2015-rollup": "^1.1.1",
-    "bfred-npm-bundler": "^5.0.0",
-    "gzip-size-cli": "^1.0.0",
-    "npm-run-all": "^1.7.0",
-    "onchange": "^2.2.0",
-    "xo": "^0.13.0"
+    "bfred-npm-bundler": "^7.1.2",
+    "npm-run-all": "^2.3.0",
+    "onchange": "^2.5.0",
+    "xo": "^0.16.0"
   },
   "xo": {
     "esnext": true,
