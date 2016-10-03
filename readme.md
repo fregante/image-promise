@@ -32,9 +32,9 @@ loadImage( '/cat.jpg' );
 loadImage( ['/cat.jpg', '/dog.png'] );
 // Returns a Promise that resolves with **an array of images.**
 
-var images = document.querySelectorAll('img');
-loadImage( Array.from(images) );
-// The promises resolves when all the images supplied are loaded
+loadImage( document.querySelector('img') ); // one element
+loadImage( document.querySelectorAll('img') ); // any Array-like list of elements
+// The promises resolve when the provided <img>s are loaded
 ```
 
 ## Examples
@@ -67,7 +67,7 @@ loadImage(['/cat.jpg', '/dog.png']) // array of URLs
 
 ## Automatic cache
 
-`image-promise` also caches the generated `<img>` tags so successive calls with the same exact `src` string will return the same `<img>` tag and be resolve at the same time as the first one.
+If you pass image URLs (first two examples), `image-promise` will caches the generated `<img>` tags so successive calls with the same exact `src` string will return the same `<img>` tag and will be resolved at the same time as the first one.
 
 Because the `<img>` are cached internally, if you want to uncache and [unload them from memory](http://www.fngtps.com/2010/mobile-safari-image-resource-limit-workaround/), call the `unload` method on the same `src`:
 
