@@ -1,50 +1,51 @@
-'use strict';
-
-export default function load(src) {
-	// if argument is an array, treat as
-	// load(['1.jpg', '2.jpg'])
-	if (src.map) {
-		return Promise.all(src.map(load));
+function trackLoading(image, src) {
+	if (src) {
+		image.src = src;
 	}
-
-	// check whether an <img> was passed as argument
-	let image = new Image();
-	if (src.src) {
-		image = src;
-		src = src.src;
-	}
-
-	if (!load[src]) {
-		load[src] = new Promise((resolve, reject) => {
+	const promise = new Promise((resolve, reject) => {
+		if (image.complete) {
+			resolve(image);
+		} else {
 			image.addEventListener('load', () => resolve(image));
 			image.addEventListener('error', () => reject(image));
-
-			if (!image.src) {
-				image.src = src;
-			}
-
-			if (image.complete) {
-				resolve(image);
-			}
-		});
-		load[src].image = image;
-	}
-	return load[src];
+		}
+	});
+	promise.image = image;
+	return promise;
 }
 
-load.unload = function (src) {
-	// an <img> was passed as argument
-	if (src.src) {
-		src = src.src;
+export default function load(image) {
+	// if argument is an array, treat as
+	// load(['1.jpg', '2.jpg'])
+	if (image.map) {
+		return Promise.all(image.map(load));
+	}
+
+	// if image is just a <img>, don't cache it
+	if (image.src) {
+		return trackLoading(image);
+	}
+
+	// load is treated as a map, assumes all image paths don't clash with Function.prototype
+	if (!load[image]) {
+		load[image] = trackLoading(new Image(), image);
+	}
+	return load[image];
+}
+
+load.unload = function (image) {
+	if (!image.src) {
+		// an <img> was passed as argument, so nothing to unload
+		return;
 	}
 
 	// if argument is an array, treat as
 	// load(['1.jpg', '2.jpg'])
-	if (src.map) {
-		src.map(load.unload);
-	} else if (load[src]) {
+	if (image.map) {
+		image.map(load.unload);
+	} else if (load[image]) {
 		// GC, http://www.fngtps.com/2010/mobile-safari-image-resource-limit-workaround/
-		load[src].image.src = 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=';
-		delete load[src];
+		load[image].image.src = 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=';
+		delete load[image];
 	}
 };
