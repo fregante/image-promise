@@ -17,7 +17,7 @@ function trackLoading(image, src) {
 export default function load(image) {
 	// if argument is an array, treat as
 	// load(['1.jpg', '2.jpg'])
-	if (image.length !== undefined) {
+	if (typeof image !== 'string' && image.length !== undefined) {
 		return Promise.all([].map.call(image, load));
 	}
 
@@ -34,14 +34,14 @@ export default function load(image) {
 }
 
 load.unload = function (image) {
-	if (!image.src) {
+	if (image.src) {
 		// an <img> was passed as argument, so nothing to unload
 		return;
 	}
 
 	// if argument is an array, treat as
 	// load(['1.jpg', '2.jpg'])
-	if (image.length !== undefined) {
+	if (typeof image !== 'string' && image.length !== undefined) {
 		[].map.call(image, load.unload);
 	} else if (load[image]) {
 		// GC, http://www.fngtps.com/2010/mobile-safari-image-resource-limit-workaround/
