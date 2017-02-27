@@ -19,9 +19,11 @@
   ],
   "files": [
     "dist/image-promise.common-js.js",
-    "dist/image-promise.es-modules.js"
+    "dist/image-promise.es-modules.js",
+    "index.d.ts"
   ],
   "main": "dist/image-promise.common-js.js",
+  "types": "./index.d.ts",
   "jsnext:main": "dist/image-promise.es-modules.js",
   "scripts": {
     "build:js": "bfred-npm-bundler image-promise loadImage",
