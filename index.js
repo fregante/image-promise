@@ -25,8 +25,10 @@ export default function load(image) {
 				reject(image);
 			}
 		}
-		if (image.complete) {
+		if (image.naturalWidth) { // Truthy if loaded successfully
 			resolve(image);
+		} else if (image.complete) { // True if failed, at this point
+			reject(image);
 		} else {
 			image.addEventListener('load', fullfill);
 			image.addEventListener('error', fullfill);
