@@ -25,13 +25,13 @@ export default function load(image) {
 			image.addEventListener('error', fullfill);
 		}
 		function fullfill() {
-			image.removeEventListener('load', fullfill);
-			image.removeEventListener('error', fullfill);
 			if (image.naturalWidth) {
 				resolve(image);
 			} else {
 				reject(image);
 			}
+			image.removeEventListener('load', fullfill);
+			image.removeEventListener('error', fullfill);
 		}
 	});
 	promise.image = image;
