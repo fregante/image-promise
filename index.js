@@ -24,10 +24,10 @@ export default function load(image) {
 			image.addEventListener('load', fullfill);
 			image.addEventListener('error', fullfill);
 		}
-		function fullfill(e) {
+		function fullfill() {
 			image.removeEventListener('load', fullfill);
 			image.removeEventListener('error', fullfill);
-			if (e.type === 'load') {
+			if (image.naturalWidth) {
 				resolve(image);
 			} else {
 				reject(image);
