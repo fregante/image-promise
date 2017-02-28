@@ -65,16 +65,6 @@ loadImage(['/cat.jpg', '/dog.png']) // array of URLs
 });
 ```
 
-## Automatic cache
-
-If you pass image URLs (first two examples), `image-promise` will caches the generated `<img>` tags so successive calls with the same exact `src` string will return the same `<img>` tag and will be resolved at the same time as the first one.
-
-Because the `<img>` are cached internally, if you want to uncache and [unload them from memory](http://www.fngtps.com/2010/mobile-safari-image-resource-limit-workaround/), call the `unload` method on the same `src`:
-
-```js
-loadImage.unload('img.jpg'); // like with loadImage(), you can also pass an array of URLs or elements
-```
-
 ## Dependencies
 
 None! But you need to polyfill `window.Promise` in IE<=11
