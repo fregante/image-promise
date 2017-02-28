@@ -1,16 +1,3 @@
-function trackLoading(image) {
-	const promise = new Promise((resolve, reject) => {
-		if (image.complete) {
-			resolve(image);
-		} else {
-			image.addEventListener('load', () => resolve(image));
-			image.addEventListener('error', () => reject(image));
-		}
-	});
-	promise.image = image;
-	return promise;
-}
-
 export default function load(image) {
 	if (typeof image === 'string') {
 		// If image is a string, "convert" it to an <img>
@@ -23,5 +10,14 @@ export default function load(image) {
 		return Promise.all([].map.call(image, load));
 	}
 
-	return trackLoading(image);
+	const promise = new Promise((resolve, reject) => {
+		if (image.complete) {
+			resolve(image);
+		} else {
+			image.addEventListener('load', () => resolve(image));
+			image.addEventListener('error', () => reject(image));
+		}
+	});
+	promise.image = image;
+	return promise;
 }
