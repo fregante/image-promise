@@ -1,6 +1,6 @@
 export default function load(image) {
 	if (!image) {
-		return Promise.reject(image);
+		return Promise.reject();
 	} else if (typeof image === 'string') {
 		// If image is a string, "convert" it to an <img>
 		const src = image;
@@ -12,7 +12,7 @@ export default function load(image) {
 		return Promise.all([].map.call(image, load));
 	} else if (image.tagName !== 'IMG') {
 		// If it's not an <img> tag, reject
-		return Promise.reject(image);
+		return Promise.reject();
 	}
 
 	const promise = new Promise((resolve, reject) => {
