@@ -16,6 +16,14 @@ export default function load(image) {
 	}
 
 	const promise = new Promise((resolve, reject) => {
+		if (image.naturalWidth) { // Truthy if loaded successfully
+			resolve(image);
+		} else if (image.complete) { // True if failed, at this point
+			reject(image);
+		} else {
+			image.addEventListener('load', fullfill);
+			image.addEventListener('error', fullfill);
+		}
 		function fullfill(e) {
 			image.removeEventListener('load', fullfill);
 			image.removeEventListener('error', fullfill);
@@ -24,14 +32,6 @@ export default function load(image) {
 			} else {
 				reject(image);
 			}
-		}
-		if (image.naturalWidth) { // Truthy if loaded successfully
-			resolve(image);
-		} else if (image.complete) { // True if failed, at this point
-			reject(image);
-		} else {
-			image.addEventListener('load', fullfill);
-			image.addEventListener('error', fullfill);
 		}
 	});
 	promise.image = image;
