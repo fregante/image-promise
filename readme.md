@@ -1,41 +1,61 @@
-# image-promise
+# image-promise [![gzipped size][badge-gzip]](#no-link) [![Travis build status][badge-travis]][link-travis] [![npm version][badge-version]][link-npm]
+
+  [badge-gzip]: https://badges.herokuapp.com/size/github/bfred-it/image-promise/master/dist/image-promise.min.js?gzip=true&label=gzipped%20size
+  [badge-travis]: https://api.travis-ci.org/bfred-it/image-promise.svg
+  [badge-version]: https://img.shields.io/npm/v/image-promise.svg
+  [link-travis]: https://travis-ci.org/bfred-it/image-promise
+  [link-npm]: https://www.npmjs.com/package/image-promise
 
 > Load an image and return a promise in the browser, in 0.3KB, no dependencies
 
-[![gzipped size](https://badges.herokuapp.com/size/github/bfred-it/image-promise/master/dist/image-promise.min.js?gzip=true&label=gzipped%20size)](#readme)
-[![Travis build status](https://api.travis-ci.org/bfred-it/image-promise.svg?branch=master)](https://travis-ci.org/bfred-it/image-promise)
-[![npm version](https://img.shields.io/npm/v/image-promise.svg)](https://www.npmjs.com/package/image-promise) 
+It can be used in two ways:
+
+- given a URL, generate an `<img>` and wait for it to load:
+
+	```js
+	loadImage('img.jpg').then(/*it's loaded!*/)
+	```
+
+- given an `<img>`, wait for it to load:
+
+	```js
+	const img = document.querySelector('img.my-image');
+	loadImage(img).then(/*it's loaded!*/)
+	```
 
 ## Install
 
-```sh
-npm install --save image-promise
-```
-```js
-import loadImage from 'image-promise';
-```
-
-If you don't use node/babel, include this:
+Pick your favorite:
 
 ```html
 <script src="dist/image-promise.min.js"></script>
 ```
 
-It uses the ES2015 `window.Promise`, so if you need to support [older browsers](http://caniuse.com/#feat=promises) (IE<=11) you need a polyfill.
+```sh
+npm install --save image-promise
+```
+
+```js
+var loadImage = require('image-promise');
+```
+
+```js
+import loadImage from 'image-promise';
+```
 
 ## Usage
 
 ```js
-loadImage( '/cat.jpg' );
+loadImage( '/cat.jpg' ); // one string
+loadImage( document.querySelector('img') ); // one element
 // Returns a Promise that resolves with an image (`<img>`)
 
-loadImage( ['/cat.jpg', '/dog.png'] );
-// Returns a Promise that resolves with **an array of images.**
-
-loadImage( document.querySelector('img') ); // one element
+loadImage( ['/cat.jpg', '/dog.png'] ); // Array of strings
 loadImage( document.querySelectorAll('img') ); // any Array-like list of elements
-// The promises resolve when the provided <img>s are loaded
+// Returns a Promise that resolves with **an array of images.**
 ```
+
+The promises resolve when the provided `<img>`s are loaded.
 
 ## Examples
 
@@ -54,7 +74,7 @@ loadImage('cat.jpg')
 Load multiple images
 
 ```js
-loadImage(['/cat.jpg', '/dog.png']) // array of URLs
+loadImage(['/cat.jpg', '/dog.png'])
 .then(function (allImgs) {
 	console.log(allImgs.length, 'images loaded!', allImgs);
 })
@@ -67,7 +87,7 @@ loadImage(['/cat.jpg', '/dog.png']) // array of URLs
 
 ## Dependencies
 
-None! But you need to polyfill `window.Promise` in IE<=11
+None! But you need to polyfill `window.Promise` in IE11 and lower.
 
 ## License
 
