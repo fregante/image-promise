@@ -1,7 +1,4 @@
-function trackLoading(image, src) {
-	if (src) {
-		image.src = src;
-	}
+function trackLoading(image) {
 	const promise = new Promise((resolve, reject) => {
 		if (image.complete) {
 			resolve(image);
@@ -15,16 +12,16 @@ function trackLoading(image, src) {
 }
 
 export default function load(image) {
-	// if argument is an array, treat as
-	// load(['1.jpg', '2.jpg'])
-	if (typeof image !== 'string' && image.length !== undefined) {
+	if (typeof image === 'string') {
+		// If image is a string, "convert" it to an <img>
+		const src = image;
+		image = new Image();
+		image.src = src;
+	} else if (image.length !== undefined) {
+		// If image is Array-like, treat as
+		// load(['1.jpg', '2.jpg'])
 		return Promise.all([].map.call(image, load));
 	}
 
-	// if image is just a <img>, don't cache it
-	if (image.src) {
-		return trackLoading(image);
-	}
-
-	return trackLoading(new Image(), image);
+	return trackLoading(image);
 }
