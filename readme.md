@@ -2,7 +2,7 @@
 
 > Load an image and return a promise in the browser, in 0.3KB, no dependencies
 
-[![gzipped size](https://badges.herokuapp.com/size/github/bfred-it/image-promise/master/dist/image-promise.browser.js?gzip=true&label=gzipped%20size)](#readme)
+[![gzipped size](https://badges.herokuapp.com/size/github/bfred-it/image-promise/master/dist/image-promise.min.js?gzip=true&label=gzipped%20size)](#readme)
 [![Travis build status](https://api.travis-ci.org/bfred-it/image-promise.svg?branch=master)](https://travis-ci.org/bfred-it/image-promise)
 [![npm version](https://img.shields.io/npm/v/image-promise.svg)](https://www.npmjs.com/package/image-promise) 
 
@@ -18,7 +18,7 @@ import loadImage from 'image-promise';
 If you don't use node/babel, include this:
 
 ```html
-<script src="dist/image-promise.browser.js"></script>
+<script src="dist/image-promise.min.js"></script>
 ```
 
 It uses the ES2015 `window.Promise`, so if you need to support [older browsers](http://caniuse.com/#feat=promises) (IE<=11) you need a polyfill.

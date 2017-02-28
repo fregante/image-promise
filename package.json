@@ -30,22 +30,18 @@
     "watch:build": "onchange 'index.js' --initial -- npm run build -- --continue-on-error",
     "watch": "npm-run-all --parallel --silent watch:*",
     "prepublish": "npm run build",
-    "test": "xo; npm run build"
+    "test": "npm run build"
   },
   "devDependencies": {
-    "bfred-npm-bundler": "^7.1.2",
-    "npm-run-all": "^2.3.0",
-    "onchange": "^2.5.0",
-    "xo": "^0.16.0"
+    "bfred-npm-bundler": "^8.0.3",
+    "npm-run-all": "^4.0.2",
+    "onchange": "^3.2.1",
+    "xo": "^0.17.1"
   },
   "xo": {
-    "esnext": true,
     "env": [
       "browser"
-    ],
-    "rules": {
-      "prefer-spread": 0
-    }
+    ]
   },
   "bugs": {
     "url": "https://github.com/bfred-it/image-promise/issues"
