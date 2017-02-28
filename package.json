@@ -31,6 +31,7 @@
     "watch:build": "onchange 'index.js' --initial -- npm run build -- --continue-on-error",
     "watch": "npm-run-all --parallel --silent watch:*",
     "prepublish": "npm run build",
+    "version": "npm run build; git add dist",
     "test": "npm run build"
   },
   "devDependencies": {
