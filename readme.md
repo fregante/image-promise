@@ -1,8 +1,9 @@
-# image-promise [![gzipped size][badge-gzip]](#no-link) [![Travis build status][badge-travis]][link-travis] [![npm version][badge-version]][link-npm]
+# image-promise [![gzipped size][badge-gzip]](#no-link) [![Travis build status][badge-travis]][link-travis] [![npm version][badge-version]][link-npm] [![npm downloads][badge-downloads]][link-npm]
 
   [badge-gzip]: https://badges.herokuapp.com/size/github/bfred-it/image-promise/master/dist/image-promise.min.js?gzip=true&label=gzipped%20size
   [badge-travis]: https://api.travis-ci.org/bfred-it/image-promise.svg
   [badge-version]: https://img.shields.io/npm/v/image-promise.svg
+  [badge-downloads]: https://img.shields.io/npm/dt/image-promise.svg
   [link-travis]: https://travis-ci.org/bfred-it/image-promise
   [link-npm]: https://www.npmjs.com/package/image-promise
 
