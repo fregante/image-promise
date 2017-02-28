@@ -11,11 +11,20 @@ export default function load(image) {
 	}
 
 	const promise = new Promise((resolve, reject) => {
+		function fullfill(e) {
+			image.removeEventListener('load', fullfill);
+			image.removeEventListener('error', fullfill);
+			if (e.type === 'load') {
+				resolve(image);
+			} else {
+				reject(image);
+			}
+		}
 		if (image.complete) {
 			resolve(image);
 		} else {
-			image.addEventListener('load', () => resolve(image));
-			image.addEventListener('error', () => reject(image));
+			image.addEventListener('load', fullfill);
+			image.addEventListener('error', fullfill);
 		}
 	});
 	promise.image = image;
