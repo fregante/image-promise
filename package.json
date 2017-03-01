@@ -21,23 +21,31 @@
   ],
   "files": [
     "dist/image-promise.common-js.js",
-    "dist/image-promise.es-modules.js"
+    "dist/image-promise.es-modules.js",
+    "index.d.ts"
   ],
   "main": "dist/image-promise.common-js.js",
+  "types": "./index.d.ts",
   "module": "dist/image-promise.es-modules.js",
   "jsnext:main": "dist/image-promise.es-modules.js",
   "scripts": {
     "build:js": "bfred-npm-bundler image-promise loadImage",
     "build": "npm-run-all --silent jsfix build:*",
-    "jsfix": "xo --fix",
+    "jsfix": "xo --ignore 'tests/**/*' --fix",
     "watch:build": "onchange 'index.js' --initial -- npm run build -- --continue-on-error",
     "watch": "npm-run-all --parallel --silent watch:*",
     "prepublish": "npm run build",
     "version": "npm run build; git add dist",
-    "test": "npm run build"
+    "test": "npm-run-all test:*",
+    "test:build": "npm run build",
+    "test:intern": "node tests/launch.js",
+    "intern:chrome": "intern-runner config=tests/chrome",
+    "intern:browserstack": "intern-runner config=tests/intern"
   },
   "devDependencies": {
     "bfred-npm-bundler": "^8.0.3",
+    "intern": "^3.4.2",
+    "is-travis": "^1.0.0",
     "npm-run-all": "^4.0.2",
     "onchange": "^3.2.1",
     "xo": "^0.17.1"
