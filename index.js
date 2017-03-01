@@ -27,9 +27,13 @@ export default function load(image) {
 	}
 
 	const promise = new Promise((resolve, reject) => {
-		if (image.naturalWidth) { // Truthy if loaded successfully
+		if (image.naturalWidth) {
+			// If the browser can determine the naturalWidth the
+			// image is already loaded successfully
 			resolve(image);
-		} else if (image.complete) { // True if failed, at this point
+		} else if (image.complete) {
+			// If the image is complete but the naturalWidth is 0px
+			// it is probably broken
 			reject(image);
 		} else {
 			image.addEventListener('load', fullfill);
