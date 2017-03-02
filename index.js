@@ -1,4 +1,3 @@
-
 export default function load(image) {
 	if (!image) {
 		return Promise.reject();
@@ -8,21 +7,19 @@ export default function load(image) {
 		image = new Image();
 		image.src = src;
 	} else if (image.length !== undefined) {
-		// If image is Array-like, treat as
-		// load(['1.jpg', '2.jpg'])
-		const all = [].map.call(image, load).map(image => image.then(
-			img => ({img, load: true}),
-			img => ({img, load: false})
+		// If image is Array-like, wait for all to finish
+		const reflected = [].map.call(image, img => load(img).then(
+			img => [img, true],
+			img => [img, false]
 		));
-		return Promise.all(all)
-		.then(results => {
+		return Promise.all(reflected).then(results => {
 			const images = {
-				loaded: results.filter(x => x.load).map(x => x.img)
+				loaded: results.filter(x => x[1]).map(x => x[0])
 			};
 			if (images.loaded.length === results.length) {
 				return images.loaded;
 			}
-			images.errored = results.filter(x => !x.load).map(x => x.img);
+			images.errored = results.filter(x => !x[1]).map(x => x[0]);
 			throw images;
 		});
 	} else if (image.tagName !== 'IMG') {
