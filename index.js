@@ -17,15 +17,8 @@ export default function load(image) {
 		// load(['1.jpg', '2.jpg'])
 		return Promise.all([].map.call(image, load).map(reflect))
 		.then(results => {
-			const loaded = [];
-			const errored = [];
-			results.forEach(x => {
-				if (x.load) {
-					loaded.push(x.img);
-				} else {
-					errored.push(x.img);
-				}
-			});
+			const loaded = results.filter(x => x.load).map(x => x.img);
+			const errored = results.filter(x => !x.load).map(x => x.img);
 			if (errored.length > 0) {
 				const error = new Error('Some images failed loading');
 				error.loaded = loaded;
