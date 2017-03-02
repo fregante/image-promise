@@ -1,9 +1,4 @@
-function reflect(promise) {
-	return promise.then(
-		img => ({img, load: true}),
-		img => ({img, load: false})
-	);
-}
+
 export default function load(image) {
 	if (!image) {
 		return Promise.reject();
@@ -15,7 +10,11 @@ export default function load(image) {
 	} else if (image.length !== undefined) {
 		// If image is Array-like, treat as
 		// load(['1.jpg', '2.jpg'])
-		return Promise.all([].map.call(image, load).map(reflect))
+		const all = [].map.call(image, load).map(image => image.then(
+			img => ({img, load: true}),
+			img => ({img, load: false})
+		));
+		return Promise.all(all)
 		.then(results => {
 			const images = {
 				loaded: results.filter(x => x.load).map(x => x.img)
