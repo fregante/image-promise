@@ -2,13 +2,16 @@ export default function load(image) {
 	if (!image) {
 		return Promise.reject();
 	} else if (typeof image === 'string') {
-		// If image is a string, "convert" it to an <img>
+		/* Create a <img> from a string */
 		const src = image;
 		image = new Image();
 		image.src = src;
 	} else if (image.length !== undefined) {
-		// If image is Array-like, wait for all to finish
+		/* Treat as multiple images */
+
+		// Momentarily ignore errors
 		const reflected = [].map.call(image, img => load(img).catch(err => err));
+
 		return Promise.all(reflected).then(results => {
 			const loaded = results.filter(x => x.naturalWidth);
 			if (loaded.length === results.length) {
@@ -20,7 +23,6 @@ export default function load(image) {
 			});
 		});
 	} else if (image.tagName !== 'IMG') {
-		// If it's not an <img> tag, reject
 		return Promise.reject();
 	}
 
