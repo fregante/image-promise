@@ -8,18 +8,15 @@ export default function load(image) {
 		image.src = src;
 	} else if (image.length !== undefined) {
 		// If image is Array-like, wait for all to finish
-		const reflected = [].map.call(image, img => load(img).then(
-			img => [img, true],
-			img => [img, false]
-		));
+		const reflected = [].map.call(image, img => load(img).catch(err => err));
 		return Promise.all(reflected).then(results => {
 			const images = {
-				loaded: results.filter(x => x[1]).map(x => x[0])
+				loaded: results.filter(x => x.naturalWidth)
 			};
 			if (images.loaded.length === results.length) {
 				return images.loaded;
 			}
-			images.errored = results.filter(x => !x[1]).map(x => x[0]);
+			images.errored = results.filter(x => !x.naturalWidth);
 			throw images;
 		});
 	} else if (image.tagName !== 'IMG') {
