@@ -1,51 +1,52 @@
-function trackLoading(image, src) {
-	if (src) {
+export default function load(image, ignoreBroken) {
+	if (typeof image === 'string') {
+		// If image is a string, "convert" it to an <img>
+		const src = image;
+		image = new Image();
 		image.src = src;
+	} else if (image && image.length !== undefined) {
+		// Handle Arrays or a NodeLists and jQuery elements
+		// load(['1.jpg', '2.jpg'])
+		// load(document.querySelectorAll('img'))
+		// load($('img'))
+		return Promise.all([].map.call(image, ignoreBroken ? load : waitFor));
+	} else if (!image || image.tagName !== 'IMG') {
+		// If it's not an <img> tag, reject
+		return Promise.reject();
 	}
+
 	const promise = new Promise((resolve, reject) => {
+		if (ignoreBroken) {
+			reject = resolve;
+		}
+		if (image.naturalWidth) {
+			// If the browser can determine the naturalWidth the
+			// image is already loaded
+			return resolve(image);
+		}
 		if (image.complete) {
-			resolve(image);
-		} else {
-			image.addEventListener('load', () => resolve(image));
-			image.addEventListener('error', () => reject(image));
+			// If the image is complete but the naturalWidth is 0px
+			// it is probably broken
+			return reject(image);
+		}
+
+		image.addEventListener('load', fullfill);
+		image.addEventListener('error', fullfill);
+
+		function fullfill() {
+			if (image.naturalWidth) {
+				resolve(image);
+			} else {
+				reject(image);
+			}
+			image.removeEventListener('load', fullfill);
+			image.removeEventListener('error', fullfill);
 		}
 	});
 	promise.image = image;
 	return promise;
 }
 
-export default function load(image) {
-	// if argument is an array, treat as
-	// load(['1.jpg', '2.jpg'])
-	if (typeof image !== 'string' && image.length !== undefined) {
-		return Promise.all([].map.call(image, load));
-	}
-
-	// if image is just a <img>, don't cache it
-	if (image.src) {
-		return trackLoading(image);
-	}
-
-	// load is treated as a map, assumes all image paths don't clash with Function.prototype
-	if (!load[image]) {
-		load[image] = trackLoading(new Image(), image);
-	}
-	return load[image];
+function waitFor(image) {
+	return load(image, true);
 }
-
-load.unload = function (image) {
-	if (image.src) {
-		// an <img> was passed as argument, so nothing to unload
-		return;
-	}
-
-	// if argument is an array, treat as
-	// load(['1.jpg', '2.jpg'])
-	if (typeof image !== 'string' && image.length !== undefined) {
-		[].map.call(image, load.unload);
-	} else if (load[image]) {
-		// GC, http://www.fngtps.com/2010/mobile-safari-image-resource-limit-workaround/
-		load[image].image.src = 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=';
-		delete load[image];
-	}
-};
