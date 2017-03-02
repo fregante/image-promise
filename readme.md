@@ -7,7 +7,7 @@
   [link-travis]: https://travis-ci.org/bfred-it/image-promise
   [link-npm]: https://www.npmjs.com/package/image-promise
 
-> Load an image and return a promise in the browser, in 0.3KB, no dependencies
+> Load one or more images, return a promise. Only 0.4KB, for the browser, no dependencies.
 
 It can be used in two ways:
 
@@ -46,24 +46,15 @@ import loadImage from 'image-promise';
 
 ## Usage
 
-```js
-loadImage( '/cat.jpg' ); // one string
-loadImage( document.querySelector('img') ); // one element
-// Returns a Promise that resolves with an image (`<img>`)
+### One image
 
-loadImage( ['/cat.jpg', '/dog.png'] ); // Array of strings
-loadImage( document.querySelectorAll('img') ); // any Array-like list of elements
-// Returns a Promise that resolves with **an array of images.**
-```
-
-The promises resolve when the provided `<img>`s are loaded.
-
-## Examples
-
-Load one image:
+`loadImage(image)` will return a Promise that resolves when the image load, or fails when the image 
 
 ```js
-loadImage('cat.jpg')
+var image = 'cat.jpg';
+// var image = $('img')[0]; // it can also be an <img> element
+
+loadImage(image)
 .then(function (img) {
 	ctx.drawImage(img, 0, 0, 10, 10);
 })
@@ -72,17 +63,24 @@ loadImage('cat.jpg')
 });
 ```
 
-Load multiple images
+### Multiple images
+
+`image-promise` can load multiple images at a time
 
 ```js
-loadImage(['/cat.jpg', '/dog.png'])
+var images = ['cat.jpg', 'dog.jpg'];
+// var images = $('img'); // it can also be a jQuery object
+// var images = document.querySelectorAll('img'); // or a NodeList
+
+loadImage(images)
 .then(function (allImgs) {
 	console.log(allImgs.length, 'images loaded!', allImgs);
 })
-.catch(function (firstImageThatFailed) {
-	// it fails fast like Promise.all 
-	// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all#Promise.all_fail-fast_behaviour
+.catch(function (err) {
 	console.error('One or more images have failed to load :(');
+	console.error(err.errored);
+	console.info('But these loaded fine:');
+	console.info(err.loaded);
 });
 ```
 
