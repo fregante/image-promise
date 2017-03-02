@@ -1,3 +1,9 @@
+function reflect(promise) {
+	return promise.then(
+		img => ({img, load: true}),
+		img => ({img, load: false})
+	);
+}
 export default function load(image) {
 	if (!image) {
 		return Promise.reject();
@@ -9,7 +15,25 @@ export default function load(image) {
 	} else if (image.length !== undefined) {
 		// If image is Array-like, treat as
 		// load(['1.jpg', '2.jpg'])
-		return Promise.all([].map.call(image, load));
+		return Promise.all([].map.call(image, load).map(reflect))
+		.then(results => {
+			const loaded = [];
+			const errored = [];
+			results.forEach(x => {
+				if (x.load) {
+					loaded.push(x.img);
+				} else {
+					errored.push(x.img);
+				}
+			});
+			if (errored.length > 0) {
+				const error = new Error('Some images failed loading');
+				error.loaded = loaded;
+				error.errored = errored;
+				throw error;
+			}
+			return loaded;
+		});
 	} else if (image.tagName !== 'IMG') {
 		// If it's not an <img> tag, reject
 		return Promise.reject();
