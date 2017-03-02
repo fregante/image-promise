@@ -8,5 +8,6 @@ Thumbs.db
 *.log
 logs
 
+image-promise.js
 *.common-js.js
 *.es-modules.js

@@ -1,51 +1,32 @@
-function trackLoading(image, src) {
-	if (src) {
+export default function load(image) {
+	if (typeof image === 'string') {
+		// If image is a string, "convert" it to an <img>
+		const src = image;
+		image = new Image();
 		image.src = src;
+	} else if (image.length !== undefined) {
+		// If image is Array-like, treat as
+		// load(['1.jpg', '2.jpg'])
+		return Promise.all([].map.call(image, load));
 	}
+
 	const promise = new Promise((resolve, reject) => {
+		function fullfill(e) {
+			image.removeEventListener('load', fullfill);
+			image.removeEventListener('error', fullfill);
+			if (e.type === 'load') {
+				resolve(image);
+			} else {
+				reject(image);
+			}
+		}
 		if (image.complete) {
 			resolve(image);
 		} else {
-			image.addEventListener('load', () => resolve(image));
-			image.addEventListener('error', () => reject(image));
+			image.addEventListener('load', fullfill);
+			image.addEventListener('error', fullfill);
 		}
 	});
 	promise.image = image;
 	return promise;
 }
-
-export default function load(image) {
-	// if argument is an array, treat as
-	// load(['1.jpg', '2.jpg'])
-	if (typeof image !== 'string' && image.length !== undefined) {
-		return Promise.all([].map.call(image, load));
-	}
-
-	// if image is just a <img>, don't cache it
-	if (image.src) {
-		return trackLoading(image);
-	}
-
-	// load is treated as a map, assumes all image paths don't clash with Function.prototype
-	if (!load[image]) {
-		load[image] = trackLoading(new Image(), image);
-	}
-	return load[image];
-}
-
-load.unload = function (image) {
-	if (image.src) {
-		// an <img> was passed as argument, so nothing to unload
-		return;
-	}
-
-	// if argument is an array, treat as
-	// load(['1.jpg', '2.jpg'])
-	if (typeof image !== 'string' && image.length !== undefined) {
-		[].map.call(image, load.unload);
-	} else if (load[image]) {
-		// GC, http://www.fngtps.com/2010/mobile-safari-image-resource-limit-workaround/
-		load[image].image.src = 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=';
-		delete load[image];
-	}
-};
