@@ -10,14 +10,14 @@ export default function load(image) {
 		// If image is Array-like, wait for all to finish
 		const reflected = [].map.call(image, img => load(img).catch(err => err));
 		return Promise.all(reflected).then(results => {
-			const images = {
-				loaded: results.filter(x => x.naturalWidth)
-			};
-			if (images.loaded.length === results.length) {
-				return images.loaded;
+			const loaded = results.filter(x => x.naturalWidth);
+			if (loaded.length === results.length) {
+				return loaded;
 			}
-			images.errored = results.filter(x => !x.naturalWidth);
-			throw images;
+			return Promise.reject({
+				loaded,
+				errored: results.filter(x => !x.naturalWidth)
+			});
 		});
 	} else if (image.tagName !== 'IMG') {
 		// If it's not an <img> tag, reject
