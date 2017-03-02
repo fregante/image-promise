@@ -17,14 +17,14 @@ export default function load(image) {
 		// load(['1.jpg', '2.jpg'])
 		return Promise.all([].map.call(image, load).map(reflect))
 		.then(results => {
-			const loaded = results.filter(x => x.load).map(x => x.img);
-			if (loaded.length !== results.length) {
-				const error = new Error('Some images failed loading');
-				error.loaded = loaded;
-				error.errored = results.filter(x => !x.load).map(x => x.img);
-				throw error;
+			const images = {
+				loaded: results.filter(x => x.load).map(x => x.img)
+			};
+			if (images.loaded.length === results.length) {
+				return images.loaded;
 			}
-			return loaded;
+			images.errored = results.filter(x => !x.load).map(x => x.img);
+			throw images;
 		});
 	} else if (image.tagName !== 'IMG') {
 		// If it's not an <img> tag, reject
