@@ -18,11 +18,10 @@ export default function load(image) {
 		return Promise.all([].map.call(image, load).map(reflect))
 		.then(results => {
 			const loaded = results.filter(x => x.load).map(x => x.img);
-			const errored = results.filter(x => !x.load).map(x => x.img);
-			if (errored.length > 0) {
+			if (loaded.length !== results.length) {
 				const error = new Error('Some images failed loading');
 				error.loaded = loaded;
-				error.errored = errored;
+				error.errored = results.filter(x => !x.load).map(x => x.img);
 				throw error;
 			}
 			return loaded;
