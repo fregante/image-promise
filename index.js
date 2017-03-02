@@ -1,4 +1,4 @@
-export default function load(image) {
+export default function load(image, opts) {
 	if (!image) {
 		return Promise.reject();
 	} else if (typeof image === 'string') {
@@ -9,13 +9,16 @@ export default function load(image) {
 	} else if (image.length !== undefined) {
 		// If image is Array-like, treat as
 		// load(['1.jpg', '2.jpg'])
-		return Promise.all([].map.call(image, load));
+		return Promise.all([].map.call(image, image => load(image, opts)));
 	} else if (image.tagName !== 'IMG') {
 		// If it's not an <img> tag, reject
 		return Promise.reject();
 	}
 
 	const promise = new Promise((resolve, reject) => {
+		if (opts && opts.ignoreErrors) {
+			reject = resolve;
+		}
 		if (image.naturalWidth) { // Truthy if loaded successfully
 			resolve(image);
 		} else if (image.complete) { // True if failed, at this point
