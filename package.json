@@ -36,7 +36,7 @@
     "watch": "npm-run-all --parallel --silent watch:*",
     "prepublish": "npm run build",
     "version": "npm run build; git add dist",
-    "test": "npm-run-all test:*",
+    "test": "npm run build",
     "test:build": "npm run build",
     "test:intern": "node tests/launch.js",
     "intern:chrome": "intern-runner config=tests/chrome",
