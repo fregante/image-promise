@@ -1,19 +1,19 @@
 // Configuration to run tests locally against chrome
 define(function(require) {
-  'use strict';
+	'use strict';
 
-  var config = require('./intern');
+	var config = require('./intern');
 
-  // https://theintern.github.io/intern/#option-tunnel
-  config.tunnel = 'SeleniumTunnel';
-  config.tunnelOptions = {
-    drivers: ['chrome'],
-  };
+	// https://theintern.github.io/intern/#option-tunnel
+	config.tunnel = 'SeleniumTunnel';
+	config.tunnelOptions = {
+		drivers: ['chrome'],
+	};
 
-  // https://theintern.github.io/intern/#option-environments
-  config.environments = [
-    { browserName: 'chrome' },
-  ];
+	// https://theintern.github.io/intern/#option-environments
+	config.environments = [
+		{ browserName: 'chrome' },
+	];
 
 	config.reporters = [
 		{
@@ -25,5 +25,5 @@ define(function(require) {
 		}
 	];
 
-  return config;
+	return config;
 });
