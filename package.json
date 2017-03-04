@@ -1,6 +1,6 @@
 {
   "name": "image-promise",
-  "version": "5.0.0-2",
+  "version": "5.0.0",
   "description": "Load one or more images, return a promise. Only 0.4KB, for the browser, no dependencies.",
   "license": "MIT",
   "repository": "bfred-it/image-promise",
@@ -24,8 +24,8 @@
     "dist/image-promise.es-modules.js",
     "index.d.ts"
   ],
-  "main": "dist/image-promise.common-js.js",
   "types": "./index.d.ts",
+  "main": "dist/image-promise.common-js.js",
   "module": "dist/image-promise.es-modules.js",
   "jsnext:main": "dist/image-promise.es-modules.js",
   "scripts": {
