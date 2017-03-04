@@ -41,7 +41,7 @@
     "intern:browserstack": "intern-runner config=tests/intern"
   },
   "devDependencies": {
-    "bfred-npm-bundler": "^8.0.3",
+    "bfred-npm-bundler": "^8.1.0",
     "intern": "^3.4.2",
     "npm-run-all": "^4.0.2",
     "onchange": "^3.2.1",
