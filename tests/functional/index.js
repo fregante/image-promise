@@ -1,3 +1,5 @@
+/* eslint-disable import/no-extraneous-dependencies, import/no-webpack-loader-syntax, import/no-unresolved */
+/* global loadImage, define */
 define(function (require) {
 	var registerSuite = require('intern!object');
 	var assert = require('intern/chai!assert');
@@ -17,7 +19,7 @@ define(function (require) {
 	registerSuite({
 		name: 'index',
 
-		'loadImage()': runTest(function test(done) {
+		'loadImage()': runTest(function (done) {
 			loadImage().then(function () {
 				return done();
 			}).catch(function () {
@@ -27,7 +29,7 @@ define(function (require) {
 			assert.strictEqual(result, 'failed', 'receiving undefined should reject the promisse');
 		}),
 
-		'loadImage(1)': runTest(function test(done) {
+		'loadImage(1)': runTest(function (done) {
 			loadImage().then(function () {
 				return done();
 			}).catch(function () {
@@ -37,7 +39,7 @@ define(function (require) {
 			assert.strictEqual(result, 'failed', 'receiving a number should reject the promisse');
 		}),
 
-		'loadImage(false)': runTest(function test(done) {
+		'loadImage(false)': runTest(function (done) {
 			loadImage().then(function () {
 				return done();
 			}).catch(function () {
@@ -47,7 +49,7 @@ define(function (require) {
 			assert.strictEqual(result, 'failed', 'receiving a boolean should reject the promisse');
 		}),
 
-		'loadImage(DivElement)': runTest(function test(done) {
+		'loadImage(DivElement)': runTest(function (done) {
 			loadImage(document.createElement('div')).then(function () {
 				return done();
 			}).catch(function () {
@@ -57,7 +59,7 @@ define(function (require) {
 			assert.strictEqual(result, 'failed', 'receiving a invalid HTMLElement should reject the promisse');
 		}),
 
-		'loadImage(string)': runTest(function test(done) {
+		'loadImage(string)': runTest(function (done) {
 			loadImage('logo.png').then(function (img) {
 				return done(img.naturalWidth);
 			}).catch(function () {
@@ -67,7 +69,7 @@ define(function (require) {
 			assert.strictEqual(result, 512, 'an image url should resolve with the loaded image');
 		}),
 
-		'loadImage(string[]])': runTest(function test(done) {
+		'loadImage(string[]])': runTest(function (done) {
 			loadImage(['logo.png', 'logo2.png']).then(function (imgs) {
 				return done(imgs.length);
 			}).catch(function () {
@@ -77,9 +79,9 @@ define(function (require) {
 			assert.strictEqual(result, 2, 'an url array of two images should resolve two images');
 		}),
 
-		'loadImage(img)': runTest(function test(done) {
+		'loadImage(img)': runTest(function (done) {
 			var div = document.createElement('div');
-			div.innerHTML = "<img src='logo.png'>";
+			div.innerHTML = '<img src="logo.png">';
 			document.body.appendChild(div);
 			var img = document.body.querySelector('img');
 			loadImage(img).then(function (img) {
@@ -91,9 +93,9 @@ define(function (require) {
 			assert.strictEqual(result, 512, 'an image should resolve with the loaded image');
 		}),
 
-		'loadImage(img[])': runTest(function test(done) {
+		'loadImage(img[])': runTest(function (done) {
 			var div = document.createElement('div');
-			div.innerHTML = "<img src='logo.png'><img src='logo2.png'>";
+			div.innerHTML = '<img src="logo.png"><img src="logo2.png">';
 			document.body.appendChild(div);
 			var img = Array.prototype.slice.call(document.body.querySelectorAll('img'));
 			loadImage(img).then(function (imgs) {
@@ -105,9 +107,9 @@ define(function (require) {
 			assert.strictEqual(result, 2, 'an image array of two images should resolve two images');
 		}),
 
-		'loadImage(NodeList)': runTest(function test(done) {
+		'loadImage(NodeList)': runTest(function (done) {
 			var div = document.createElement('div');
-			div.innerHTML = "<img src='logo.png'><img src='logo2.png'>";
+			div.innerHTML = '<img src="logo.png"><img src="logo2.png">';
 			document.body.appendChild(div);
 			var img = document.body.querySelectorAll('img');
 			loadImage(img).then(function (imgs) {
@@ -119,7 +121,7 @@ define(function (require) {
 			assert.strictEqual(result, 2, 'a node list of two images should resolve two images');
 		}),
 
-		'loadImage([])': runTest(function test(done) {
+		'loadImage([])': runTest(function (done) {
 			loadImage([]).then(function (imgs) {
 				return done(imgs.length);
 			}).catch(function () {
@@ -129,12 +131,12 @@ define(function (require) {
 			assert.strictEqual(result, 0, 'an empty array should succeed with 0 loaded images');
 		}),
 
-		'loadImage(broken img)': runTest(function test(done) {
+		'loadImage(broken img)': runTest(function (done) {
 			var div = document.createElement('div');
-			div.innerHTML = "<img src='404.png'>";
+			div.innerHTML = '<img src="404.png">';
 			document.body.appendChild(div);
 			var img = Array.prototype.slice.call(document.body.querySelectorAll('img'));
-			loadImage(img).then(function (imgs) {
+			loadImage(img).then(function () {
 				return done();
 			}).catch(function (err) {
 				return done(err);
@@ -145,12 +147,12 @@ define(function (require) {
 			assert.equal(result.errored.length, 1, 'a broken image should return 1 error result');
 		}),
 
-		'loadImage(mixed NodeList)': runTest(function test(done) {
+		'loadImage(mixed NodeList)': runTest(function (done) {
 			var div = document.createElement('div');
-			div.innerHTML = "<img src='logo.png'><img src='404.png'>";
+			div.innerHTML = '<img src="logo.png"><img src="404.png">';
 			document.body.appendChild(div);
 			var img = document.body.querySelectorAll('img');
-			loadImage(img).then(function (imgs) {
+			loadImage(img).then(function () {
 				return done();
 			}).catch(function (err) {
 				return done(err);
@@ -161,16 +163,16 @@ define(function (require) {
 			assert.equal(result.errored.length, 1, 'a broken image should return 1 error result');
 		}),
 
-		'loadPreCachedImages(mixed NodeList)': runTest(function test(done) {
+		'loadPreCachedImages(mixed NodeList)': runTest(function (done) {
 			var div = document.createElement('div');
-			div.innerHTML = "<img src='logo.png'><img src='404.png'>";
+			div.innerHTML = '<img src="logo.png"><img src="404.png">';
 			document.body.appendChild(div);
 			var img = document.body.querySelectorAll('img');
 			loadImage(img)
-				.catch(function() {})
-				.then(function() {
+				.catch(function () {})
+				.then(function () {
 					// Second (cached) load
-					loadImage(img).then(function (imgs) {
+					loadImage(img).then(function () {
 						return done();
 					}).catch(function (err) {
 						return done(err);
@@ -183,5 +185,4 @@ define(function (require) {
 		})
 
 	});
-
 });

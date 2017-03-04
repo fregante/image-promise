@@ -1,5 +1,7 @@
+/* global define */
+
 // Configuration to run tests locally against chrome
-define(function(require) {
+define(function (require) {
 	'use strict';
 
 	var config = require('./intern');
@@ -7,12 +9,12 @@ define(function(require) {
 	// https://theintern.github.io/intern/#option-tunnel
 	config.tunnel = 'SeleniumTunnel';
 	config.tunnelOptions = {
-		drivers: ['chrome'],
+		drivers: ['chrome']
 	};
 
 	// https://theintern.github.io/intern/#option-environments
 	config.environments = [
-		{ browserName: 'chrome' },
+		{browserName: 'chrome'}
 	];
 
 	config.reporters = [
