@@ -10,7 +10,7 @@ define(function (require) {
 						.get(require.toUrl('tests/helper/index.html'))
 						.setFindTimeout(5000)
 						.setExecuteAsyncTimeout(5000)
-						.findByCssSelector('body.loaded')
+						.findByCssSelector('body')
 						.executeAsync(tester)
 						.then(asserter);
 		};

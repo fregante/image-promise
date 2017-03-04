@@ -34,18 +34,6 @@ define({
 	// See <https://theintern.github.io/intern/#option-tunnel> for built-in options
 	tunnel: 'BrowserStackTunnel',
 
-// Configuration options for the module loader; any AMD configuration options supported by the AMD loader in use
-	// can be used here.
-	// If you want to use a different loader than the default loader, see
-	// <https://theintern.github.io/intern/#option-useLoader> for more information.
-	loaderOptions: {
-		// Packages that should be registered with the loader in each testing environment
-		packages: [{name: 'myPackage', location: '.'}]
-	},
-
-	// Unit test suite(s) to run in each browser
-	suites: [],
-
 	// Functional test suite(s) to execute against each browser once unit tests are completed
 	functionalSuites: ['tests/functional/index'],
 
