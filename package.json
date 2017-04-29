@@ -26,8 +26,6 @@
   ],
   "types": "./index.d.ts",
   "main": "dist/image-promise.common-js.js",
-  "module": "dist/image-promise.es-modules.js",
-  "jsnext:main": "dist/image-promise.es-modules.js",
   "scripts": {
     "build:js": "bfred-npm-bundler image-promise loadImage",
     "build": "npm-run-all --silent jsfix build:*",
