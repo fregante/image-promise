@@ -26,7 +26,8 @@ export default function load(image) {
 		return Promise.reject();
 	}
 
-	const promise = new Promise((resolve, reject) => {
+	// Test the image status in the next tick
+	const promise = Promise.resolve().then(() => new Promise((resolve, reject) => {
 		if (image.naturalWidth) {
 			// If the browser can determine the naturalWidth the
 			// image is already loaded successfully
@@ -48,7 +49,7 @@ export default function load(image) {
 			image.removeEventListener('load', fullfill);
 			image.removeEventListener('error', fullfill);
 		}
-	});
+	}));
 	promise.image = image;
 	return promise;
 }
