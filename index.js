@@ -13,7 +13,7 @@ export default function load(image, attributes) {
 		/* Treat as multiple images */
 
 		// Momentarily ignore errors
-		const reflected = [].map.call(image, img => load(img).catch(err => err));
+		const reflected = [].map.call(image, img => load(img, attributes).catch(err => err));
 
 		return Promise.all(reflected).then(results => {
 			const loaded = results.filter(x => x.naturalWidth);
