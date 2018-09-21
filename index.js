@@ -1,10 +1,13 @@
-export default function load(image) {
+export default function load(image, attributes) {
 	if (!image) {
 		return Promise.reject();
 	} else if (typeof image === 'string') {
 		/* Create a <img> from a string */
 		const src = image;
 		image = new Image();
+		Object.keys(attributes || {}).forEach(
+ 			name => image.setAttribute(name, attributes[name])
+ 		);
 		image.src = src;
 	} else if (image.length !== undefined) {
 		/* Treat as multiple images */

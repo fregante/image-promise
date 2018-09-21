@@ -48,7 +48,7 @@ import loadImage from 'image-promise';
 
 ### One image
 
-`loadImage(image)` will return a Promise that resolves when the image load, or fails when the image 
+`loadImage(image)` will return a Promise that resolves when the image load, or fails when the image
 
 ```js
 var image = 'cat.jpg';
@@ -81,6 +81,27 @@ loadImage(images)
 	console.error(err.errored);
 	console.info('But these loaded fine:');
 	console.info(err.loaded);
+});
+```
+
+### Set custom attributes
+
+`loadImage(image, attributes)` lets you pass as the second argument an object of attributes you want to assign to the image element before it starts loading.
+
+This is useful for example when you need [CORS enabled image](https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_enabled_image), where you need to set the attribute `crossorigin="anonymous"` before the image starts downloading.
+
+```js
+var image = 'http://catpics.com/cat.jpg';
+
+loadImage(image, { crossorigin: 'anonymous' })
+.then(function (img) {
+	ctx.drawImage(img, 0, 0, 10, 10);
+
+	// now you can do this
+	canvas.toDataURL('image/png')
+})
+.catch(function () {
+	console.error('Image failed to load :(');
 });
 ```
 
