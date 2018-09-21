@@ -6,8 +6,8 @@ export default function load(image, attributes) {
 		const src = image;
 		image = new Image();
 		Object.keys(attributes || {}).forEach(
- 			name => image.setAttribute(name, attributes[name])
- 		);
+			name => image.setAttribute(name, attributes[name])
+		);
 		image.src = src;
 	} else if (image.length !== undefined) {
 		/* Treat as multiple images */
