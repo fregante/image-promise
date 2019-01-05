@@ -1,16 +1,19 @@
-export default function load(image) {
+export default function load(image, attributes) {
 	if (!image) {
 		return Promise.reject();
 	} else if (typeof image === 'string') {
 		/* Create a <img> from a string */
 		const src = image;
 		image = new Image();
+		Object.keys(attributes || {}).forEach(
+			name => image.setAttribute(name, attributes[name])
+		);
 		image.src = src;
 	} else if (image.length !== undefined) {
 		/* Treat as multiple images */
 
 		// Momentarily ignore errors
-		const reflected = [].map.call(image, img => load(img).catch(err => err));
+		const reflected = [].map.call(image, img => load(img, attributes).catch(err => err));
 
 		return Promise.all(reflected).then(results => {
 			const loaded = results.filter(x => x.naturalWidth);

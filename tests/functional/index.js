@@ -182,7 +182,17 @@ define(function (require) {
 			assert.deepEqual(Object.keys(result), ['loaded', 'errored'], 'Errors should return all loaded and failed images');
 			assert.equal(result.loaded.length, 1, 'a broken image should return 0 success results');
 			assert.equal(result.errored.length, 1, 'a broken image should return 1 error result');
-		})
+		}),
 
+
+		'loadImage(string, object)': runTest(function (done) {
+			loadImage('logo.png', { crossorigin: 'anonymous' }).then(function (img) {
+				return done(img.getAttribute('crossorigin'));
+			}).catch(function () {
+				return done('failed');
+			});
+		}, function (result) {
+			assert.strictEqual(result, 'anonymous', 'passing an attribute results in the image having that attribute');
+		})
 	});
 });
