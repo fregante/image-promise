@@ -39,17 +39,17 @@ export default function load(image, attributes) {
 			// it is probably broken
 			reject(image);
 		} else {
-			image.addEventListener('load', fullfill);
-			image.addEventListener('error', fullfill);
+			image.addEventListener('load', fulfill);
+			image.addEventListener('error', fulfill);
 		}
-		function fullfill() {
+		function fulfill() {
 			if (image.naturalWidth) {
 				resolve(image);
 			} else {
 				reject(image);
 			}
-			image.removeEventListener('load', fullfill);
-			image.removeEventListener('error', fullfill);
+			image.removeEventListener('load', fulfill);
+			image.removeEventListener('error', fulfill);
 		}
 	});
 	promise.image = image;
