@@ -25,7 +25,7 @@ export default function load(image, attributes) {
 				errored: results.filter(x => !x.naturalWidth)
 			});
 		});
-	} else if (image.tagName !== 'IMG') {
+	} else if (image.tagName.toUpperCase() !== 'IMG') {
 		return Promise.reject();
 	}
 
