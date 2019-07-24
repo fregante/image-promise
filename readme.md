@@ -1,10 +1,10 @@
 # image-promise [![gzipped size][badge-gzip]](#no-link) [![Travis build status][badge-travis]][link-travis] [![npm version][badge-version]][link-npm] [![npm downloads][badge-downloads]][link-npm]
 
-  [badge-gzip]: https://badges.herokuapp.com/size/github/bfred-it/image-promise/master/dist/image-promise.min.js?gzip=true&label=gzipped%20size
-  [badge-travis]: https://api.travis-ci.org/bfred-it/image-promise.svg
+  [badge-gzip]: https://badges.herokuapp.com/size/github/fregante/image-promise/master/dist/image-promise.min.js?gzip=true&label=gzipped%20size
+  [badge-travis]: https://api.travis-ci.org/fregante/image-promise.svg
   [badge-version]: https://img.shields.io/npm/v/image-promise.svg
   [badge-downloads]: https://img.shields.io/npm/dt/image-promise.svg
-  [link-travis]: https://travis-ci.org/bfred-it/image-promise
+  [link-travis]: https://travis-ci.org/fregante/image-promise
   [link-npm]: https://www.npmjs.com/package/image-promise
 
 > Load one or more images, return a promise. Only 0.4KB, for the browser, no dependencies.
@@ -91,7 +91,7 @@ loadImage(images)
 This is useful for example when you need [CORS enabled image](https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_enabled_image), where you need to set the attribute `crossorigin="anonymous"` before the image starts downloading.
 
 ```js
-var image = 'http://catpics.com/cat.jpg';
+var image = 'https://catpics.com/cat.jpg';
 
 loadImage(image, { crossorigin: 'anonymous' })
 .then(function (img) {
@@ -111,4 +111,4 @@ None! But you need to polyfill `window.Promise` in IE11 and lower.
 
 ## License
 
-MIT © [Federico Brigante](http://twitter.com/bfred_it)
+MIT © [Federico Brigante](https://bfred.it)
