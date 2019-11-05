@@ -40,7 +40,7 @@ npm install image-promise
 
 ```js
 // This module is only offered as a ES Module
-import 'image-promise';
+import loadImage from 'image-promise';
 ```
 
 ## Usage
