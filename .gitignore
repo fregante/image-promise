@@ -7,8 +7,6 @@ Thumbs.db
 *.bak
 *.log
 logs
-
-image-promise.js
-*.common-js.js
-*.es-modules.js
-coverage
+*.map
+index.js
+index.d.ts

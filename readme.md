@@ -1,46 +1,45 @@
-# image-promise [![gzipped size][badge-gzip]](#no-link) [![Travis build status][badge-travis]][link-travis] [![npm version][badge-version]][link-npm] [![npm downloads][badge-downloads]][link-npm]
+# image-promise [![][badge-gzip]](#link-npm)
 
-  [badge-gzip]: https://badges.herokuapp.com/size/github/fregante/image-promise/master/dist/image-promise.min.js?gzip=true&label=gzipped%20size
-  [badge-travis]: https://api.travis-ci.org/fregante/image-promise.svg
-  [badge-version]: https://img.shields.io/npm/v/image-promise.svg
-  [badge-downloads]: https://img.shields.io/npm/dt/image-promise.svg
-  [link-travis]: https://travis-ci.org/fregante/image-promise
+  [badge-gzip]: https://img.shields.io/bundlephobia/minzip/image-promise.svg?label=gzipped
   [link-npm]: https://www.npmjs.com/package/image-promise
 
-> Load one or more images, return a promise. Only 0.4KB, for the browser, no dependencies.
+> Load one or more images, return a promise. Only 0.5KB, for the browser, no dependencies.
 
 It can be used in two ways:
 
-- given a URL, generate an `<img>` and wait for it to load:
+- pass a URL: it will generate an `<img>` and wait for it to load:
 
 	```js
-	loadImage('img.jpg').then(/*it's loaded!*/)
+	loadImage('img.jpg').then(/* It's loaded! */)
 	```
 
-- given an `<img>`, wait for it to load:
+- pass an `<img>`: it will wait for it to load:
 
 	```js
 	const img = document.querySelector('img.my-image');
-	loadImage(img).then(/*it's loaded!*/)
+	loadImage(img).then(/* It's loaded! */)
+	```
+	```
+
+- pass an array of URLs and/or `<img>`s, wait for them to load:
+
+	```js
+	const img = document.querySelector('img.my-image');
+	loadImage([img, 'loading.gif']).then(/* Both are loaded! */)
 	```
 
 ## Install
 
-Pick your favorite:
+You can just download the [standalone bundle](https://packd.fregante.now.sh/image-promise@latest?name=loadImage) (it might take a minute to download)
 
-```html
-<script src="dist/image-promise.min.js"></script>
-```
+Or use `npm`:
 
 ```sh
-npm install --save image-promise
+npm install image-promise
 ```
 
 ```js
-var loadImage = require('image-promise');
-```
-
-```js
+// This module is only offered as a ES Module
 import loadImage from 'image-promise';
 ```
 
@@ -51,8 +50,8 @@ import loadImage from 'image-promise';
 `loadImage(image)` will return a Promise that resolves when the image load, or fails when the image
 
 ```js
-var image = 'cat.jpg';
-// var image = $('img')[0]; // it can also be an <img> element
+const image = 'cat.jpg';
+// const image = $('img')[0]; // it can also be an <img> element
 
 loadImage(image)
 .then(function (img) {
@@ -68,9 +67,9 @@ loadImage(image)
 `image-promise` can load multiple images at a time
 
 ```js
-var images = ['cat.jpg', 'dog.jpg'];
-// var images = $('img'); // it can also be a jQuery object
-// var images = document.querySelectorAll('img'); // or a NodeList
+const images = ['cat.jpg', 'dog.jpg'];
+// const images = $('img'); // it can also be a jQuery object
+// const images = document.querySelectorAll('img'); // or a NodeList
 
 loadImage(images)
 .then(function (allImgs) {
@@ -91,7 +90,7 @@ loadImage(images)
 This is useful for example when you need [CORS enabled image](https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_enabled_image), where you need to set the attribute `crossorigin="anonymous"` before the image starts downloading.
 
 ```js
-var image = 'https://catpics.com/cat.jpg';
+const image = 'https://catpics.com/cat.jpg';
 
 loadImage(image, { crossorigin: 'anonymous' })
 .then(function (img) {
