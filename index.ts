@@ -38,9 +38,9 @@ function loadSingleImage(image: HTMLImageElement): ImagePromise {
 	return Object.assign(promise, {image});
 }
 
-function loadImages(input: Input, attributes?: Attributes): Promise<Output>;
+function loadImages(input: Input, attributes?: Attributes): ImagePromise;
 function loadImages(input: ArrayLike<Input>, attributes?: Attributes): Promise<Output[]>;
-function loadImages(input: Input | ArrayLike<Input>, attributes: Attributes = {}): Promise<Output | Output[]> {
+function loadImages(input: Input | ArrayLike<Input>, attributes: Attributes = {}): ImagePromise | Promise<Output[]> {
 	if (input instanceof HTMLImageElement) {
 		return loadSingleImage(input);
 	}
@@ -60,7 +60,7 @@ function loadImages(input: Input | ArrayLike<Input>, attributes: Attributes = {}
 		// Momentarily ignore errors
 		const reflect = (img: Input): Promise<HTMLImageElement | Error> => loadImages(img, attributes).catch((error: Error) => error);
 		const reflected = [].map.call(input, reflect) as Array<HTMLImageElement | Error>;
-		return Promise.all(reflected).then((results: Array<HTMLImageElement | Error>) => {
+		const tsFix = Promise.all(reflected).then((results: Array<HTMLImageElement | Error>) => {
 			const loaded = results.filter((x: any): x is HTMLImageElement => x.naturalWidth);
 			if (loaded.length === results.length) {
 				return loaded;
@@ -71,9 +71,13 @@ function loadImages(input: Input | ArrayLike<Input>, attributes: Attributes = {}
 				errored: results.filter((x: any): x is Error => !x.naturalWidth)
 			});
 		});
+
+		// Variables named `tsFix` are only here because TypeScript hates Promise-returning functions.
+		return tsFix;
 	}
 
-	return Promise.reject(new TypeError('input is not an image, a URL string, or an array of them.'));
+	const tsFix = Promise.reject(new TypeError('input is not an image, a URL string, or an array of them.'));
+	return tsFix;
 }
 
 export default loadImages;
