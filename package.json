@@ -20,34 +20,44 @@
   "license": "MIT",
   "author": "Federico Brigante <opensource@bfred.it> (bfred.it)",
   "files": [
-    "dist/image-promise.common-js.js",
-    "dist/image-promise.es-modules.js",
+    "index.js",
     "index.d.ts"
   ],
-  "main": "dist/image-promise.common-js.js",
+  "module": "index.js",
   "types": "./index.d.ts",
   "scripts": {
-    "build": "npm-run-all --silent jsfix build:*",
-    "build:js": "bfred-npm-bundler image-promise loadImage",
-    "intern:browserstack": "intern-runner config=tests/intern",
-    "intern:chrome": "intern-runner config=tests/chrome",
-    "jsfix": "xo --ignore 'tests/**/*' --fix",
-    "prepublish": "npm run build",
-    "test": "npm run build",
-    "version": "npm run build; git add dist",
-    "watch": "npm-run-all --parallel --silent watch:*",
-    "watch:build": "onchange 'index.js' --initial -- npm run build -- --continue-on-error"
+    "build": "tsc",
+    "prepublishOnly": "tsc",
+    "test": "xo && tsc --noEmit",
+    "watch": "tsc --watch"
   },
   "xo": {
-    "env": [
+    "envs": [
       "browser"
-    ]
+    ],
+    "extensions": [
+      "ts"
+    ],
+    "overrides": [
+      {
+        "files": "**/*.ts",
+        "extends": "xo-typescript",
+        "rules": {
+          "@typescript-eslint/promise-function-async": "off"
+        }
+      }
+    ],
+    "rules": {
+      "prefer-promise-reject-errors": "off"
+    }
   },
   "devDependencies": {
-    "bfred-npm-bundler": "^8.1.0",
-    "intern": "^3.4.2",
-    "npm-run-all": "^4.0.2",
-    "onchange": "^3.2.1",
-    "xo": "^0.17.1"
+    "@sindresorhus/tsconfig": "^0.4.0",
+    "@typescript-eslint/eslint-plugin": "^1.13.0",
+    "@typescript-eslint/parser": "^1.13.0",
+    "eslint-config-xo-typescript": "^0.15.0",
+    "type-fest": "^0.8.1",
+    "typescript": "^3.5.3",
+    "xo": "*"
   }
 }
