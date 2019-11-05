@@ -1,6 +1,6 @@
 {
   "name": "image-promise",
-  "version": "6.0.2",
+  "version": "6.1.0",
   "description": "Load one or more images, return a promise. Only 0.4KB, for the browser, no dependencies.",
   "keywords": [
     "browser",
