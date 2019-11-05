@@ -7,22 +7,32 @@
 
 It can be used in two ways:
 
-- given a URL, generate an `<img>` and wait for it to load:
+- pass a URL: it will generate an `<img>` and wait for it to load:
 
 	```js
-	loadImage('img.jpg').then(/*it's loaded!*/)
+	loadImage('img.jpg').then(/* It's loaded! */)
 	```
 
-- given an `<img>`, wait for it to load:
+- pass an `<img>`: it will wait for it to load:
 
 	```js
 	const img = document.querySelector('img.my-image');
-	loadImage(img).then(/*it's loaded!*/)
+	loadImage(img).then(/* It's loaded! */)
+	```
+	```
+
+- pass an array of URLs and/or `<img>`s, wait for them to load:
+
+	```js
+	const img = document.querySelector('img.my-image');
+	loadImage([img, 'loading.gif']).then(/* Both are loaded! */)
 	```
 
 ## Install
 
-You can just download the [standalone bundle](https://packd.fregante.now.sh/image-promise@latest?name=loadImage) (it might take a minute to download) and include the file in your `manifest.json`, or:
+You can just download the [standalone bundle](https://packd.fregante.now.sh/image-promise@latest?name=loadImage) (it might take a minute to download)
+
+Or use `npm`:
 
 ```sh
 npm install image-promise
