@@ -1,6 +1,6 @@
 {
   "name": "image-promise",
-  "version": "6.1.0",
+  "version": "6.1.1",
   "description": "Load one or more images, return a promise. Only 0.4KB, for the browser, no dependencies.",
   "keywords": [
     "browser",
@@ -20,9 +20,9 @@
   "license": "MIT",
   "author": "Federico Brigante <opensource@bfred.it> (bfred.it)",
   "files": [
-  	"dist/image-promise.common-js.js",
-  	"dist/image-promise.es-modules.js",
-  	"index.d.ts"
+    "dist/image-promise.common-js.js",
+    "dist/image-promise.es-modules.js",
+    "index.d.ts"
   ],
   "types": "./index.d.ts",
   "main": "dist/image-promise.common-js.js",
