@@ -20,11 +20,12 @@
   "license": "MIT",
   "author": "Federico Brigante <opensource@bfred.it> (bfred.it)",
   "files": [
-    "index.js",
-    "index.d.ts"
+  	"dist/image-promise.common-js.js",
+  	"dist/image-promise.es-modules.js",
+  	"index.d.ts"
   ],
-  "module": "index.js",
   "types": "./index.d.ts",
+  "main": "dist/image-promise.common-js.js",
   "scripts": {
     "build": "tsc",
     "prepublishOnly": "tsc",
