@@ -35,30 +35,16 @@
     "envs": [
       "browser"
     ],
-    "extensions": [
-      "ts"
-    ],
-    "overrides": [
-      {
-        "files": "**/*.ts",
-        "extends": "xo-typescript",
-        "rules": {
-          "@typescript-eslint/promise-function-async": "off"
-        }
-      }
-    ],
     "rules": {
+      "@typescript-eslint/promise-function-async": "off",
       "prefer-promise-reject-errors": "off"
     }
   },
   "devDependencies": {
-    "@sindresorhus/tsconfig": "^0.4.0",
-    "@typescript-eslint/eslint-plugin": "^1.13.0",
-    "@typescript-eslint/parser": "^1.13.0",
-    "eslint-config-xo-typescript": "^0.15.0",
-    "type-fest": "^0.8.1",
-    "typescript": "^3.5.3",
-    "xo": "*"
+    "@sindresorhus/tsconfig": "^0.7.0",
+    "type-fest": "^0.13.0",
+    "typescript": "^3.8.3",
+    "xo": "^0.28.3"
   },
   "type": "module"
 }
