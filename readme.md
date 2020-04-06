@@ -19,7 +19,6 @@ It can be used in two ways:
 	const img = document.querySelector('img.my-image');
 	loadImage(img).then(/* It's loaded! */)
 	```
-	```
 
 - pass an array of URLs and/or `<img>`s, wait for them to load:
 
