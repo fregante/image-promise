@@ -1,7 +1,9 @@
-# image-promise [![][badge-gzip]](#link-npm)
+#  image-promise [![][badge-gzip]](#link-npm)
 
   [badge-gzip]: https://img.shields.io/bundlephobia/minzip/image-promise.svg?label=gzipped
   [link-npm]: https://www.npmjs.com/package/image-promise
+
+<img align="right" width="400" src="https://user-images.githubusercontent.com/1402241/81458802-b7a21580-919c-11ea-9599-377d7aee1670.gif">
 
 > Load one or more images, return a promise. Only 0.5KB, for the browser, no dependencies.
 
