@@ -31,7 +31,7 @@ It can be used in two ways:
 
 ## Install
 
-You can just download the [standalone bundle](https://packd.fregante.now.sh/image-promise@latest?name=loadImage) (it might take a minute to download)
+You can download the [standalone bundle](https://bundle.fregante.com/?pkg=image-promise&global=loadImage)
 
 Or use `npm`:
 
