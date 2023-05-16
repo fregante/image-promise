@@ -12,28 +12,24 @@ It can be used in two ways:
 - pass a URL: it will generate an `<img>` and wait for it to load:
 
 	```js
-	loadImage('img.jpg').then(/* It's loaded! */)
+	loadImage('img.jpg').loaded.then(/* It's loaded! */)
 	```
 
 - pass an `<img>`: it will wait for it to load:
 
 	```js
 	const img = document.querySelector('img.my-image');
-	loadImage(img).then(/* It's loaded! */)
+	loadImage(img).loaded.then(/* It's loaded! */)
 	```
 
-- pass an array of URLs and/or `<img>`s, wait for them to load:
+- pass an array of URLs and/or `<img>` to `loadImages`, wait for them to load:
 
 	```js
 	const img = document.querySelector('img.my-image');
-	loadImage([img, 'loading.gif']).then(/* Both are loaded! */)
+	loadImages([img, 'loading.gif']).then(/* Both are loaded! */)
 	```
 
 ## Install
-
-You can download the [standalone bundle](https://bundle.fregante.com/?pkg=image-promise&global=loadImage)
-
-Or use `npm`:
 
 ```sh
 npm install image-promise
@@ -111,4 +107,4 @@ None! But you need to polyfill `window.Promise` in IE11 and lower.
 
 ## License
 
-MIT © [Federico Brigante](https://bfred.it)
+MIT © [Federico Brigante](https://fregante.com)

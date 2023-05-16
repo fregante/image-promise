@@ -17,10 +17,12 @@
     "vanilla"
   ],
   "repository": "fregante/image-promise",
+  "funding": "https://github.com/sponsors/fregante",
   "license": "MIT",
-  "author": "Federico Brigante <opensource@bfred.it> (bfred.it)",
+  "author": "Federico Brigante <me@fregante.com> (https://fregante.com)",
   "type": "module",
-  "module": "index.js",
+  "exports": "./index.js",
+  "main": "./index.js",
   "types": "./index.d.ts",
   "files": [
     "index.js",
@@ -43,9 +45,9 @@
     }
   },
   "devDependencies": {
-    "@sindresorhus/tsconfig": "^0.7.0",
-    "type-fest": "^0.13.1",
-    "typescript": "^3.8.3",
-    "xo": "^0.30.0"
+    "@sindresorhus/tsconfig": "^3.0.1",
+    "type-fest": "^3.10.0",
+    "typescript": "^5.0.4",
+    "xo": "^0.54.2"
   }
 }
