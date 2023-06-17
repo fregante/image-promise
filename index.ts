@@ -16,8 +16,10 @@ function loadSingleImage(image: HTMLImageElement): ImagePromise {
 			// If the browser can determine the naturalWidth the image is already loaded successfully
 			resolve(image);
 		} else if (image.complete) {
-			// If the image is complete but the naturalWidth is 0px it is probably broken
-			reject(image);
+			// If the image is complete but the naturalWidth is 0px it is probably broken,
+			// but in some cases it is actually loaded but image node has not updated
+			// yet so let's check again in next cycle of browser event loop
+			setTimeout(fulfill, 0);
 		} else {
 			image.addEventListener('load', fulfill);
 			image.addEventListener('error', fulfill);
