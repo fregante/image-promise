@@ -45,9 +45,10 @@
     }
   },
   "devDependencies": {
-    "@sindresorhus/tsconfig": "^3.0.1",
-    "type-fest": "^3.10.0",
-    "typescript": "^5.0.4",
-    "xo": "^0.54.2"
+    "@sindresorhus/tsconfig": "^5.0.0",
+    "type-fest": "^4.20.0",
+    "typescript": "^5.4.5",
+    "vitest": "^1.6.0",
+    "xo": "^0.58.0"
   }
 }

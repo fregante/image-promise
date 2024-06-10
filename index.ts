@@ -13,12 +13,10 @@ function setAttributes(image: HTMLImageElement, attributes: Attributes): void {
 	}
 }
 
-function lazyPromise<Image = HTMLImageElement>(fn: () => Promise<Image>): () => Promise<Image> {
+function lazyPromise<Image = HTMLImageElement>(function_: () => Promise<Image>): () => Promise<Image> {
 	let promise: Promise<Image> | undefined;
 	return () => {
-		if (!promise) {
-			promise = fn();
-		}
+		promise ??= function_();
 
 		return promise;
 	};
@@ -41,7 +39,7 @@ function load(image: HTMLImageElement): Result {
 
 				if (image.complete) {
 					// If the image is complete but the naturalWidth is 0px it's probably broken
-					reject(image);
+					reject(new Error('Unable to load image metadata'));
 					clearInterval(interval);
 					return true;
 				}
