@@ -1,3 +1,7 @@
+# Deprecated
+
+See https://github.com/fregante/image-promise/issues/27, use the native `img.decode()` instead.
+
 #  image-promise [![][badge-gzip]](#link-npm)
 
   [badge-gzip]: https://img.shields.io/bundlephobia/minzip/image-promise.svg?label=gzipped
